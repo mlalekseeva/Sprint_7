@@ -2,6 +2,7 @@ import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.example.API.OrderSteps;
 import org.example.models.Order;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +20,7 @@ public class OrderCreationSuccessParamsTests {
 
     private final List<String> color;
     private Order order;
+    OrderSteps orderSteps = new OrderSteps();
 
     public OrderCreationSuccessParamsTests(List<String> color) {
         this.color = color;
@@ -30,6 +32,7 @@ public class OrderCreationSuccessParamsTests {
                 {Arrays.asList("BLACK")},
                 {Arrays.asList("GREY")},
                 {Arrays.asList("BLACK", "GREY")},
+                {Arrays.asList(" ")},
 
         };
     }
@@ -55,20 +58,8 @@ public class OrderCreationSuccessParamsTests {
     @DisplayName("Проверка создания заказа со значением color BLACK, GREY, BLACK&GREY")
     public void createOrderAnyColorSuccess() {
 
-        Response response = sendPostRequestV1orders();
+        Response response = orderSteps.sendPostRequestV1orders(order);
         checkStatusCodeAndTrack(response);
-
-    }
-
-    @Step("Send POST request to /api/v1/orders")
-    public Response sendPostRequestV1orders() {
-        Response response = given()
-                .header("Content-Type", "application/json; charset=utf-8")
-                .body(order)
-                .when()
-                .post("/api/v1/orders");
-
-        return response;
 
     }
 

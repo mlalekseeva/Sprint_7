@@ -2,6 +2,7 @@ import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.example.API.OrderSteps;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,6 +10,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class OrderListTest {
+
+    OrderSteps orderSteps = new OrderSteps();
 
     @Before
     public void setUp() {
@@ -20,18 +23,8 @@ public class OrderListTest {
     @DisplayName("Проверка получения списка заказов")
     public void getOrderList() {
 
-        Response response = sendGetRequestV1orders();
+        Response response = orderSteps.sendGetRequestV1orders();
         checkStatusCodeAndOrders(response);
-
-    }
-
-    @Step("Send GET request to /api/v1/orders")
-    public Response sendGetRequestV1orders() {
-        Response response = given()
-                .header("Content-Type", "application/json; charset=utf-8")
-                .get("/api/v1/orders");
-
-        return response;
 
     }
 

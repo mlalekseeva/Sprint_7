@@ -1,24 +1,32 @@
 package org.example.models;
 
 
-public class CourierCreateAndLogin {
+public class Courier {
 
     private String login;
     private String password;
     private String firstName;
+    private String id;
 
-    public CourierCreateAndLogin withLogin(String login) {
+    public Courier withLogin(String login) {
         this.login = login;
         return this;
     }
 
-    public CourierCreateAndLogin withPassword(String password) {
+    public Courier withPassword(String password) {
         this.password = password;
         return this;
     }
 
-    public CourierCreateAndLogin withFirstName(String firstName) {
+    public Courier withFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
+    }
+
+
+
+    public Courier withId(String id) {
+        this.id = id;
         return this;
     }
 

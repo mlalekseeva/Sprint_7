@@ -2,6 +2,7 @@ import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.example.API.OrderSteps;
 import org.example.models.Order;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import static org.hamcrest.Matchers.notNullValue;
 public class OrderCreationSuccessTest {
 
     private Order order;
+    OrderSteps orderSteps = new OrderSteps();
 
     @Before
     public void setUp() {
@@ -31,20 +33,8 @@ public class OrderCreationSuccessTest {
     @DisplayName("Создание заказа без color")
     public void createOrderNoColorSuccess() {
 
-        Response response = sendPostRequestV1orders();
+        Response response = orderSteps.sendPostRequestV1orders(order);
         checkStatusCodeAndTrack(response);
-
-    }
-
-    @Step("Send POST request to /api/v1/orders")
-    public Response sendPostRequestV1orders() {
-        Response response = given()
-                .header("Content-Type", "application/json; charset=utf-8")
-                .body(order)
-                .when()
-                .post("/api/v1/orders");
-
-        return response;
 
     }
 
